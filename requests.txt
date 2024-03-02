@@ -2,3 +2,5 @@ fastapi
 uvicorn
 sqlalchemy
 alembic
+pydantic[email]
+passlib[bcrypt]
