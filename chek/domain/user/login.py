@@ -45,3 +45,4 @@ def login(db: Session, form_data: OAuth2PasswordRequestForm = Depends()):
         "username": user.username,
         "is_superuser": user.is_superuser
     }
+
