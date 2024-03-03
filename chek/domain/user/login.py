@@ -47,7 +47,7 @@ def login(db: Session, form_data: OAuth2PasswordRequestForm = Depends()):
         "is_superuser": user.is_superuser
     }
 
-
+#token을 통해 현재 유저 정보 가져오기
 def get_current_user(token: str = Depends(settings.oauth2_scheme), db: Session = Depends(get_db)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
