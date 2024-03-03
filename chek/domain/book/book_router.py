@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from starlette import status
 from database import get_db
@@ -19,3 +19,10 @@ def book_create(_book_create: book_schema.BookCreate,
                     db: Session = Depends(get_db)):
     book_crud.create_book(db=db, book_create=_book_create)
 
+@router.get("/{book_id}", response_model=book_schema.Book)
+def book_detail(book_id: int, db: Session = Depends(get_db)):
+    book = book_crud.get_book(db, book_id=book_id)
+    if not book:
+        raise HTTPException(status_code=404, detail="Book not found")
+    else:
+        return book

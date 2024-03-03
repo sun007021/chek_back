@@ -20,3 +20,8 @@ def create_book(db: Session, book_create: BookCreate):
                     image=book_create.image)
     db.add(db_book)
     db.commit()
+
+def get_book(db: Session, book_id: int):
+    book = db.query(Book).get(book_id)
+
+    return book
