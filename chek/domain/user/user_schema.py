@@ -1,6 +1,7 @@
 from pydantic import BaseModel, field_validator, EmailStr
 from pydantic_core.core_schema import FieldValidationInfo
 
+#register
 class UserCreate(BaseModel):
     username: str
     password1: str
@@ -21,6 +22,7 @@ class UserCreate(BaseModel):
         return v
 
 
+#get user list
 class UserList(BaseModel):
     id: int
     username: str
