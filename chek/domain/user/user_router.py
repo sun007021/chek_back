@@ -1,6 +1,5 @@
 from datetime import datetime, timedelta
-from fastapi import APIRouter
-from fastapi import Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from starlette import status
 from fastapi.security import OAuth2PasswordRequestForm
@@ -18,7 +17,7 @@ router = APIRouter(
 #register
 @router.post("/", status_code=status.HTTP_204_NO_CONTENT)
 def user_create(_user_create: user_schema.UserCreate, db: Session = Depends(get_db)):
-    user_crud.create_user(db=db, user_create=_user_create)
+   user_crud.register(db, _user_create)
 
 #get user list
 @router.get("/", status_code=status.HTTP_200_OK, response_model=list[user_schema.UserList])
