@@ -25,6 +25,7 @@ class University(Base):
     name = Column(String, unique=True, nullable=False, index=True)
     address = Column(String, nullable=True)
 
+# 책 모델
 class Book(Base):
     __tablename__ = "book"
 
