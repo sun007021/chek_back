@@ -13,3 +13,11 @@ def create_user(db: Session, user_create: UserCreate):
                    )
     db.add(db_user)
     db.commit()
+
+def get_users(db: Session):
+    user_list = db.query(User).all()
+    return user_list
+
+def get_user(db: Session, username: int):
+    user = db.query(User).filter(User.username == username).first()
+    return user
