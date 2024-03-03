@@ -30,3 +30,11 @@ class UserList(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+# login
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+    username: str
+    is_superuser: bool
