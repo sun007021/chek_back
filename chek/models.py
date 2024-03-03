@@ -24,3 +24,14 @@ class University(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True, nullable=False, index=True)
     address = Column(String, nullable=True)
+
+class Book(Base):
+    __tablename__ = "book"
+
+    id = Column(Integer, primary_key=True)
+    title= Column(String, nullable=False)
+    author= Column(String, nullable=False)
+    isbn= Column(String, nullable=False)
+    publisher= Column(String, nullable=False)
+    publicationdate= Column(String, nullable=False)
+    image= Column(String, nullable=True)
