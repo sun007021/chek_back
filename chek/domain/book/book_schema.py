@@ -31,3 +31,7 @@ class BookCreate(BaseModel):
 # 책 수정할때 쓰는 객체
 class BookUpdate(BookCreate):
    book_id: int
+
+# 책 삭제할때 쓰는 객체
+class BookDelete(BaseModel):
+    book_id: int

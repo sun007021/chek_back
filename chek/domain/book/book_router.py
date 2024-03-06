@@ -43,3 +43,17 @@ def book_update(_book_update: book_schema.BookUpdate, db: Session = Depends(get_
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="수정 권한이 없습니다.")
     
     book_crud.update_book(db=db, db_book=db_book, book_update=_book_update)
+
+# 책 삭제 함수
+@router.delete("/delete", status_code=status.HTTP_204_NO_CONTENT)
+def book_delete(_book_delete: book_schema.BookDelete,
+                    db: Session = Depends(get_db),
+                    current_user: User = Depends(get_current_user)):
+    db_book = book_crud.get_book(db, book_id=_book_delete.book_id)
+    if not db_book:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="데이터를 찾을수 없습니다.")
+    
+    if current_user.is_superuser != True:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="삭제 권한이 없습니다.")
+    
+    book_crud.delete_book(db=db, db_book=db_book)

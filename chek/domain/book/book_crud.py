@@ -38,3 +38,8 @@ def update_book(db: Session, db_book: Book, book_update: BookUpdate):
     db_book.image = book_update.image
     db.add(db_book)
     db.commit()
+
+# 책 삭제 함수
+def delete_book(db: Session, db_book: Book):
+    db.delete(db_book)
+    db.commit()
