@@ -33,3 +33,7 @@ class TransactionCreate(BaseModel):
         if not v or not v.strip():
             raise HTTPException(status_code=400, detail="빈 값은 허용되지 않습니다.")
         return v
+
+# # 거래 글 수정할때 쓰는 객체
+# class TransactionUpdate(TransactionCreate):
+#     transaction_id: int

@@ -24,3 +24,23 @@ def create_transaction(db: Session, transaction_create: TransactionCreate):
                     create_date=datetime.now())
     db.add(db_transaction)
     db.commit()
+
+# 거래 글 세부 조회 함수
+def get_transaction(db: Session, transaction_id: int):
+    transaction = db.query(Transaction).get(transaction_id)
+
+    return transaction
+
+# # 거래 글 수정 함수
+# def update_transaction(db: Session, db_transaction: Transaction, transaction_update: TransactionUpdate):
+#     db_transaction.subject = transaction_update.subject
+#     db_transaction.content = transaction_update.content
+#     db_transaction.title = transaction_update.title
+#     db_transaction.author = transaction_update.author
+#     db_transaction.isbn = transaction_update.isbn
+#     db_transaction.publisher = transaction_update.publisher
+#     db_transaction.publicationdate = transaction_update.publicationdate
+#     db_transaction.image = transaction_update.image
+#     db_transaction.modify_date = datetime.now()
+#     db.add(db_transaction)
+#     db.commit()

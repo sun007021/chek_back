@@ -52,3 +52,5 @@ class Transaction(Base):
     publicationdate= Column(String, nullable=False)
     image= Column(String, nullable=True)
     create_date = Column(DateTime, nullable=False)
+    modify_date = Column(DateTime, nullable=True)
+    
