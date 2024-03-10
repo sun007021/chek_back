@@ -3,7 +3,7 @@ from models import Transaction
 from sqlalchemy.orm import Session
 from domain.transaction.transaction_schema import TransactionCreate
 
-# 책 전체 조회 함수
+# 거래 글 전체 조회 함수
 def get_transaction_list(db: Session):
     transaction_list = db.query(Transaction)\
         .order_by(Transaction.id.asc())\
@@ -24,6 +24,8 @@ def create_transaction(db: Session, transaction_create: TransactionCreate):
                     create_date=datetime.now())
     db.add(db_transaction)
     db.commit()
+
+
 
 # 거래 글 세부 조회 함수
 def get_transaction(db: Session, transaction_id: int):

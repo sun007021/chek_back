@@ -57,3 +57,4 @@ def book_delete(_book_delete: book_schema.BookDelete,
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="삭제 권한이 없습니다.")
     
     book_crud.delete_book(db=db, db_book=db_book)
+

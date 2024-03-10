@@ -7,7 +7,7 @@ class Book(BaseModel):
     id: int
     title: str
     author: str
-    isbn: str
+    isbn: int
     publisher: str
     publicationdate: str
     image: str
@@ -16,13 +16,13 @@ class Book(BaseModel):
 class BookCreate(BaseModel):
     title: str
     author: str
-    isbn: str
+    isbn: int
     publisher: str
     publicationdate: str
     image: str | None= None
 
     # request에 빈칸이 있는 경우 예외처리 함수
-    @validator('title', 'author', 'isbn', 'publisher', 'publicationdate')
+    @validator('title', 'author', 'publisher', 'publicationdate')
     def not_empty(cls, v):
         if not v or not v.strip():
             raise HTTPException(status_code=400, detail="빈 값은 허용되지 않습니다.")
@@ -35,3 +35,5 @@ class BookUpdate(BookCreate):
 # 책 삭제할때 쓰는 객체
 class BookDelete(BaseModel):
     book_id: int
+
+

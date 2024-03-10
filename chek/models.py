@@ -32,7 +32,7 @@ class Book(Base):
     id = Column(Integer, primary_key=True)
     title= Column(String, nullable=False)
     author= Column(String, nullable=False)
-    isbn= Column(String, nullable=False)
+    isbn= Column(Integer, nullable=False)
     publisher= Column(String, nullable=False)
     publicationdate= Column(String, nullable=False)
     image= Column(String, nullable=True)
@@ -45,12 +45,7 @@ class Transaction(Base):
     subject= Column(String, nullable=False)
     content= Column(String, nullable=False)
     book_id= Column(Integer, ForeignKey("book.id"))
-    title= Column(String, nullable=False)
-    author= Column(String, nullable=False)
-    isbn= Column(String, nullable=False)
-    publisher= Column(String, nullable=False)
-    publicationdate= Column(String, nullable=False)
     image= Column(String, nullable=True)
     create_date = Column(DateTime, nullable=False)
     modify_date = Column(DateTime, nullable=True)
-    
+
