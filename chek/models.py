@@ -41,11 +41,14 @@ class Book(Base):
 class Transaction(Base):
     __tablename__ = "transaction"
 
+    username = Column(String, ForeignKey('users.username'),nullable=False)
     id = Column(Integer, primary_key=True)
     subject= Column(String, nullable=False)
     content= Column(String, nullable=False)
+    isbn = Column(Integer, nullable=False)
     book_id= Column(Integer, ForeignKey("book.id"))
-    image= Column(String, nullable=True)
+    image= Column(String, nullable=True, default =0)
     create_date = Column(DateTime, nullable=False)
     modify_date = Column(DateTime, nullable=True)
+    user = relationship("User", backref="transaction_users")
 

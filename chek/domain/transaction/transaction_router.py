@@ -4,7 +4,8 @@ from starlette import status
 from database import get_db
 from domain.transaction import transaction_schema, transaction_crud
 from domain.book import book_crud, book_schema
-
+from domain.user.login import get_current_user
+from models import Transaction, User
 router = APIRouter(
     prefix="/transaction",
 )
@@ -18,8 +19,8 @@ def transaction_list(db: Session = Depends(get_db)):
 # 거래 글 등록 함수
 @router.post("/", status_code=status.HTTP_204_NO_CONTENT)
 def transaction_create(_transaction_create: transaction_schema.TransactionCreate,
-                    db: Session = Depends(get_db)):
-    transaction_crud.create_transaction(db=db, transaction_create=_transaction_create)
+                    db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    transaction_crud.create_transaction(db=db, transaction_create=_transaction_create, user=current_user)
 
 # 거래 글 책조회(isbn) 함수
 @router.get("/book/{book_isbn}", response_model=book_schema.Book)
@@ -49,16 +50,18 @@ def transaction_detail(transaction_id: int, db: Session = Depends(get_db)):
     else:
         return transaction
     
-# # 거래 글 수정 함수
-# @router.put("/{transaction_id}", status_code=status.HTTP_204_NO_CONTENT)
-# def transaction_update(_transaction_update: transaction_schema.TransactionUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-#     db_transaction = transaction_crud.get_transaction(db, transaction_id=_transaction_update.transaction_id)
-#     if not db_transaction:
-#         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="데이터를 찾을수 없습니다.")
+
     
-#     if current_user.id != db_transaction.user.id:
-#         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="수정 권한이 없습니다.")
+# 거래 글 수정 함수
+@router.put("/{transaction_id}", status_code=status.HTTP_204_NO_CONTENT)
+def transaction_update(_transaction_update: transaction_schema.TransactionUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    db_transaction = transaction_crud.get_transaction(db, transaction_id=_transaction_update.transaction_id)
+    if not db_transaction:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="데이터를 찾을수 없습니다.")
+    
+    if current_user.id != db_transaction.user.id :
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="수정 권한이 없습니다.")
         
-#         transaction_crud.update_transaction(db=db, db_transaction=db_transaction, transaction_update=_transaction_update)
+    transaction_crud.update_transaction(db=db, db_transaction=db_transaction, transaction_update=_transaction_update)
 
 
