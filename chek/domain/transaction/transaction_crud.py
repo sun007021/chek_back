@@ -40,3 +40,8 @@ def update_transaction(db: Session, db_transaction: Transaction, transaction_upd
     db_transaction.modify_date = datetime.now()
     db.add(db_transaction)
     db.commit()
+
+#  거래 글 삭제 함수
+def delete_transaction(db: Session, db_transaction: Transaction):
+    db.delete(db_transaction)
+    db.commit()

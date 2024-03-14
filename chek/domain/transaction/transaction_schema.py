@@ -30,3 +30,7 @@ class TransactionCreate(BaseModel):
 # 거래 글 수정할때 쓰는 객체
 class TransactionUpdate(TransactionCreate):
     transaction_id: int
+
+# 거래 글 삭제할때 쓰는 객체
+class TransactionDelete(BaseModel):
+    transaction_id: int
